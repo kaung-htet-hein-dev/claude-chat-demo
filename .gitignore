@@ -8,6 +8,7 @@
 # Build output
 bin/
 dist/
+tmp/
 
 # Test cache
 *.test
@@ -34,3 +35,6 @@ go.work.sum
 
 # Claude Code local settings
 .claude/settings.local.json
+
+# Secrets
+secret

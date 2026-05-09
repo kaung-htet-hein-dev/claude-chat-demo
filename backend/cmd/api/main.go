@@ -48,6 +48,10 @@ func main() {
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORS())
 
+	e.GET("/", func(c echo.Context) error {
+		return c.JSON(200, map[string]string{"status": "ok", "service": "ai-chat"})
+	})
+
 	chatHandler.RegisterRoutes(e)
 
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
