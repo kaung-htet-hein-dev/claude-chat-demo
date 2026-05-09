@@ -11,16 +11,23 @@ import (
 	"ai-chat/internal/repository"
 )
 
+// AIClient is what the service needs from any Claude implementation.
+// Both ai.ClaudeClient (SDK-based) and aihttp.ClaudeClient (raw HTTP) satisfy it.
+type AIClient interface {
+	Complete(ctx context.Context, messages []ai.Message) (string, error)
+	Stream(ctx context.Context, messages []ai.Message) (<-chan string, <-chan error)
+}
+
 type ChatService struct {
 	chatRepo    *repository.ChatRepository
 	messageRepo *repository.MessageRepository
-	claude      *ai.ClaudeClient
+	claude      AIClient
 }
 
 func NewChatService(
 	chatRepo *repository.ChatRepository,
 	messageRepo *repository.MessageRepository,
-	claude *ai.ClaudeClient,
+	claude AIClient,
 ) *ChatService {
 	return &ChatService{
 		chatRepo:    chatRepo,

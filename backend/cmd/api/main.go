@@ -7,7 +7,7 @@ import (
 	"syscall"
 	"time"
 
-	"ai-chat/internal/ai"
+	"ai-chat/internal/aihttp"
 	"ai-chat/internal/config"
 	"ai-chat/internal/database"
 	"ai-chat/internal/handler"
@@ -38,7 +38,7 @@ func main() {
 
 	chatRepo := repository.NewChatRepository(db)
 	messageRepo := repository.NewMessageRepository(db)
-	claudeClient := ai.NewClaudeClient(cfg.AnthropicAPIKey)
+	claudeClient := aihttp.NewClaudeClient(cfg.AnthropicAPIKey)
 	chatService := service.NewChatService(chatRepo, messageRepo, claudeClient)
 	chatHandler := handler.NewChatHandler(chatService)
 
