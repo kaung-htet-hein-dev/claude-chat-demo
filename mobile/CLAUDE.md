@@ -90,15 +90,14 @@ Rules:
 
 Features:
 
+- create streaming response and non-streaming response screens
 - user can send message
 - assistant replies
-- support streaming responses
-- support non-streaming responses
 - markdown rendering
 - auto scroll to latest message
 - loading state
 - typing indicator
-- retry failed messages
+- retry button for failed messages
 
 Messages:
 
@@ -121,7 +120,7 @@ Requirements:
 - handle disconnects gracefully
 - support cancellation later
 
-Do not use websocket unless necessary.
+Do not use websocket.
 
 ---
 
@@ -133,15 +132,6 @@ react-native-enriched-markdown
 Requirements:
 
 - render markdown safely
-- support:
-  - headings
-  - bold
-  - italic
-  - inline code
-  - code blocks
-  - bullet lists
-  - numbered lists
-  - block quotes
 - code blocks should be readable
 - markdown rendering must work during streaming
 
@@ -176,7 +166,7 @@ AI chats can become large.
 
 Requirements:
 
-- use FlashList or FlatList properly
+- use FlatList properly
 - avoid unnecessary re-renders
 - memoize message items if needed
 - avoid recreating functions excessively
