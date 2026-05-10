@@ -65,18 +65,6 @@ export function MessageList({
     const chatId = messages[messages.length - 1]?.chat_id ?? "";
     const now = new Date().toISOString();
 
-    if (isStreaming) {
-      return [
-        {
-          id: STREAM_ID,
-          chat_id: chatId,
-          role: "assistant",
-          content: streamingText ?? "",
-          created_at: now
-        },
-        ...reversed
-      ];
-    }
     if (isWaiting) {
       return [
         {
@@ -84,6 +72,18 @@ export function MessageList({
           chat_id: chatId,
           role: "assistant",
           content: "",
+          created_at: now
+        },
+        ...reversed
+      ];
+    }
+    if (isStreaming) {
+      return [
+        {
+          id: STREAM_ID,
+          chat_id: chatId,
+          role: "assistant",
+          content: streamingText ?? "",
           created_at: now
         },
         ...reversed
