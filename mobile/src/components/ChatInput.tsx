@@ -1,24 +1,25 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
+  Keyboard,
   LayoutChangeEvent,
   Pressable,
   StyleSheet,
   TextInput,
-  View,
+  View
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { KeyboardStickyView } from "react-native-keyboard-controller";
 import {
   SharedValue,
   useSharedValue,
-  withTiming,
+  withTiming
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { radii, spacing, theme, typography } from "../constants/theme";
 import {
   CHAT_INPUT_NATIVE_ID,
   INPUT_HEIGHT,
-  INPUT_MARGIN,
+  INPUT_MARGIN
 } from "../constants/chat";
 
 type Props = {
@@ -36,9 +37,10 @@ export function ChatInput({
   busy,
   cancellable,
   placeholder = "Message",
-  extraContentPadding,
+  extraContentPadding
 }: Props) {
   const { bottom } = useSafeAreaInsets();
+  const inputRef = useRef<TextInput>(null);
   const [value, setValue] = useState("");
   const fallback = useSharedValue(0);
   const padding = extraContentPadding ?? fallback;
@@ -49,6 +51,8 @@ export function ChatInput({
     if (!canSend) return;
     onSend(value.trim());
     setValue("");
+    inputRef.current?.clear();
+    Keyboard.dismiss();
   };
 
   const onInputLayout = useCallback(
@@ -56,7 +60,7 @@ export function ChatInput({
       const next = Math.max(e.nativeEvent.layout.height - INPUT_HEIGHT, 0);
       padding.value = withTiming(next, { duration: 200 });
     },
-    [padding],
+    [padding]
   );
 
   return (
@@ -64,6 +68,7 @@ export function ChatInput({
       <View style={styles.wrapper}>
         <View style={styles.inputRow} onLayout={onInputLayout}>
           <TextInput
+            ref={inputRef}
             nativeID={CHAT_INPUT_NATIVE_ID}
             style={styles.input}
             placeholder={placeholder}
@@ -72,6 +77,7 @@ export function ChatInput({
             onChangeText={setValue}
             multiline
             editable={!busy || cancellable}
+            autoCorrect={false}
           />
           {cancellable && busy ? (
             <Pressable onPress={onCancel} style={styles.button}>
@@ -85,8 +91,8 @@ export function ChatInput({
                 styles.button,
                 {
                   backgroundColor: canSend ? theme.accent : theme.surfaceMuted,
-                  opacity: canSend ? 1 : 0.6,
-                },
+                  opacity: canSend ? 1 : 0.6
+                }
               ]}
             >
               <Ionicons
@@ -108,7 +114,7 @@ const styles = StyleSheet.create({
     paddingTop: spacing.sm,
     borderTopWidth: StyleSheet.hairlineWidth,
     backgroundColor: theme.background,
-    borderTopColor: theme.border,
+    borderTopColor: theme.border
   },
   inputRow: {
     flexDirection: "row",
@@ -118,14 +124,14 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.xs,
     borderRadius: radii.lg,
     minHeight: INPUT_HEIGHT,
-    backgroundColor: theme.surface,
+    backgroundColor: theme.surface
   },
   input: {
     flex: 1,
     fontSize: typography.body,
     paddingVertical: spacing.sm,
     maxHeight: 140,
-    color: theme.text,
+    color: theme.text
   },
   button: {
     width: 36,
@@ -135,6 +141,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginLeft: spacing.xs,
     marginBottom: 4,
-    backgroundColor: theme.danger,
-  },
+    backgroundColor: theme.danger
+  }
 });

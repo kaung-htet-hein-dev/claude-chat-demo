@@ -40,7 +40,7 @@ const ChatScrollView = forwardRef<
     <KeyboardChatScrollView
       ref={ref}
       inverted
-      keyboardLiftBehavior="whenAtEnd"
+      keyboardLiftBehavior="always"
       automaticallyAdjustContentInsets={false}
       contentInsetAdjustmentBehavior="never"
       keyboardDismissMode="interactive"
