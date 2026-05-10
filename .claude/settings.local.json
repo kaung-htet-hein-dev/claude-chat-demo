@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(go mod *)",
+      "Bash(go get *)",
+      "Bash(go build *)",
+      "Bash(docker compose *)",
+      "Bash(curl -v -m 5 http://localhost:8080/chats)",
+      "Bash(curl -s http://localhost:8080/)",
+      "Bash(curl -s -X POST http://localhost:8080/chats -H \"Content-Type: application/json\" -d '{\"title\":\"test from curl\"}')",
+      "Bash(curl -s \"https://api.github.com/repos/kirillzyusko/react-native-keyboard-controller/contents/src/components\")",
+      "Bash(npm view *)",
+      "Bash(curl -s https://registry.npmjs.org/react-native-keyboard-controller/__TRACKED_VAR__)",
+      "Bash(xargs -I{} tar -tzf {})",
+      "Bash(yarn install *)",
+      "Bash(npx tsc *)",
+      "Bash(rm \"/Users/kaunghtethein/Developer/Personal/ai-chat/mobile/app/chat/[mode]/[id].tsx\")",
+      "Bash(rmdir \"/Users/kaunghtethein/Developer/Personal/ai-chat/mobile/app/chat/[mode]\" \"/Users/kaunghtethein/Developer/Personal/ai-chat/mobile/app/chat\" \"/Users/kaunghtethein/Developer/Personal/ai-chat/mobile/app\")"
+    ]
+  }
+}
